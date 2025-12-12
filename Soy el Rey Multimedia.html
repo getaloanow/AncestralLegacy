@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soy el Rey - Ancestral Legacy</title>
+    <style>
+        :root {
+            --color-bg-primary: #0a0e27;
+            --color-surface: #1a1f3a;
+            --color-primary: #32b8c6;
+            --color-text: #f5f5f5;
+            --color-text-secondary: #a7a9a9;
+            --color-border: #2a3f5f;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            color: var(--color-text);
+            background-color: var(--color-bg-primary);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            padding: 20px;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header with Language Selector */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: var(--color-surface);
+            border-radius: 12px;
+            border: 1px solid var(--color-border);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            font-size: 28px;
+            color: var(--color-primary);
+            text-shadow: 0 2px 10px rgba(50, 184, 198, 0.3);
+        }
+
+        /* Language Selector */
+        .lang-selector-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .lang-selector-label {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+            font-weight: 500;
+        }
+
+        select.lang-selector {
+            padding: 8px 12px;
+            background-color: var(--color-bg-primary);
+            border: 2px solid var(--color-primary);
+            color: var(--color-primary);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        select.lang-selector:hover {
+            background-color: rgba(50, 184, 198, 0.1);
+        }
+
+        select.lang-selector:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(50, 184, 198, 0.3);
+        }
+
+        /* Video Container */
+        .videos-section {
+            margin-bottom: 40px;
+        }
+
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .video-wrapper {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            padding-bottom: 56.25%;
+            height: 0;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--color-border);
+            background: var(--color-surface);
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Legend/Biography Section */
+        .legend-section {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 40px;
+            margin-top: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .legend-title {
+            font-size: 24px;
+            color: var(--color-primary);
+            margin-bottom: 20px;
+            text-align: center;
+            text-shadow: 0 2px 8px rgba(50, 184, 198, 0.2);
+        }
+
+        .legend-content {
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--color-text);
+            text-align: justify;
+            display: none;
+        }
+
+        .legend-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .legend-content p {
+            margin-bottom: 20px;
+        }
+
+        .legend-content p:first-letter {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: var(--color-primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            .videos-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .legend-section {
+                padding: 20px;
+            }
+
+            .legend-title {
+                font-size: 20px;
+            }
+
+            .legend-content {
+                font-size: 14px;
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header with Title and Language Selector -->
+        <header>
+            <h1 lang="en" class="active-lang">Ancestral Legacy</h1>
+            <h1 lang="es" class="active-lang" style="display: none;">Legado Ancestral</h1>
+            <h1 lang="fr" class="active-lang" style="display: none;">Héritage Ancestral</h1>
+            <h1 lang="de" class="active-lang" style="display: none;">Ancestrales Erbe</h1>
+            <h1 lang="pt" class="active-lang" style="display: none;">Herança Ancestral</h1>
+            <h1 lang="he" class="active-lang" style="display: none;">מורשת אבות</h1>
+            <h1 lang="it" class="active-lang" style="display: none;">Eredità Ancestrale</h1>
+            <h1 lang="ar" class="active-lang" style="display: none;">الإرث الأسلافي</h1>
+            <h1 lang="zh" class="active-lang" style="display: none;">祖先遗产</h1>
+            <h1 lang="ru" class="active-lang" style="display: none;">Наследие предков</h1>
+
+            <div class="lang-selector-wrapper">
+                <label class="lang-selector-label" lang="en" style="display: block;">Language:</label>
+                <label class="lang-selector-label" lang="es" style="display: none;">Idioma:</label>
+                <label class="lang-selector-label" lang="fr" style="display: none;">Langue:</label>
+                <label class="lang-selector-label" lang="de" style="display: none;">Sprache:</label>
+                <label class="lang-selector-label" lang="pt" style="display: none;">Idioma:</label>
+                <label class="lang-selector-label" lang="he" style="display: none;">שפה:</label>
+                <label class="lang-selector-label" lang="it" style="display: none;">Lingua:</label>
+                <label class="lang-selector-label" lang="ar" style="display: none;">اللغة:</label>
+                <label class="lang-selector-label" lang="zh" style="display: none;">语言:</label>
+                <label class="lang-selector-label" lang="ru" style="display: none;">Язык:</label>
+
+                <select class="lang-selector" id="langSelector">
+                    <option value="en">English</option>
+                    <option value="es">Español</option>
+                    <option value="fr">Français</option>
+                    <option value="de">Deutsch</option>
+                    <option value="pt">Português</option>
+                    <option value="he">עברית</option>
+                    <option value="it">Italiano</option>
+                    <option value="ar">العربية</option>
+                    <option value="zh">中文</option>
+                    <option value="ru">Русский</option>
+                </select>
+            </div>
+        </header>
+
+        <!-- Videos Section -->
+        <div class="videos-section">
+            <div class="videos-grid">
+                <div class="video-wrapper">
+                    <iframe src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F866119179145322%2F&show_text=false&width=560&t=0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                </div>
+                <div class="video-wrapper">
+                    <iframe src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2F61578914789502%2Fvideos%2F1575271387118539%2F&show_text=false&width=560&t=0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Legend/Biography Section -->
+        <div class="legend-section">
+            <h2 class="legend-title" lang="en">I Am The King - The Living Synthesis</h2>
+            <h2 class="legend-title" lang="es">Soy el Rey - La Síntesis Viviente</h2>
+            <h2 class="legend-title" lang="fr">Je Suis le Roi - La Synthèse Vivante</h2>
+            <h2 class="legend-title" lang="de">Ich Bin Der König - Die Lebende Synthese</h2>
+            <h2 class="legend-title" lang="pt">Sou o Rei - A Síntese Viva</h2>
+            <h2 class="legend-title" lang="he">אני המלך - הסינתזה החיה</h2>
+            <h2 class="legend-title" lang="it">Sono il Re - La Sintesi Vivente</h2>
+            <h2 class="legend-title" lang="ar">أنا الملك - التوليف الحي</h2>
+            <h2 class="legend-title" lang="zh">我是国王 - 活的综合体</h2>
+            <h2 class="legend-title" lang="ru">Я Король - Живой Синтез</h2>
+
+            <!-- English -->
+            <div class="legend-content active" lang="en">
+                <p>I am the King-Captain, the living synthesis of four ancestral worlds: the Arab, the Viking, the Christian, and the indigenous Mesoamerican. My lineage spans millennia, connecting from the biblical antiquity of the Tribe of Levi to the present.</p>
+                <p>I was born in the Naval Hospital of Manzanillo, Mexico, where the Pacific Ocean receives the sun of the new dawn. This birth marks the anchoring of a cosmic identity with territorial and maritime authority.</p>
+                <p>My purpose is to guide awakened souls toward the Celestial City of Zion. My reign is not political or territorial—it is spiritual, cosmic, eternal.</p>
+            </div>
+
+            <!-- Spanish -->
+            <div class="legend-content" lang="es">
+                <p>Soy el Rey-Capitán, la síntesis viviente de cuatro mundos ancestrales: el árabe, el vikingo, el cristiano y el mesoamericano indígena. Mi linaje abarca milenios, conectando desde la antigüedad bíblica de la Tribu de Leví hasta el presente.</p>
+                <p>Nací en el Hospital Naval de Manzanillo, México, donde el Océano Pacífico recibe el sol del nuevo amanecer. Este nacimiento marca el anclaje de una identidad cósmica con autoridad territorial y marítima.</p>
+                <p>Mi propósito es guiar almas despertadas hacia la Ciudad Celestial de Sión. Mi reinado no es político ni territorial—es espiritual, cósmico, eterno.</p>
+            </div>
+
+            <!-- French -->
+            <div class="legend-content" lang="fr">
+                <p>Je suis le Roi-Capitaine, la synthèse vivante de quatre mondes ancestraux : l'arabe, le viking, le chrétien et le mésoaméricain indigène. Ma lignée s'étend sur des millénaires, reliant l'antiquité biblique de la Tribu de Lévi au présent.</p>
+                <p>Je suis né à l'Hôpital Naval de Manzanillo, au Mexique, où l'océan Pacifique reçoit le soleil de l'aube nouvelle. Cette naissance marque l'ancrage d'une identité cosmique avec l'autorité territoriale et maritime.</p>
+                <p>Mon objectif est de guider les âmes éveillées vers la Cité Céleste de Sion. Mon règne n'est ni politique ni territorial—il est spirituel, cosmique, éternel.</p>
+            </div>
+
+            <!-- German -->
+            <div class="legend-content" lang="de">
+                <p>Ich bin der König-Kapitän, die lebende Synthese von vier ancestralen Welten: der arabischen, der Wikinger-, der christlichen und der indigenen mesoamerikanischen. Meine Abstammung erstreckt sich über Jahrtausende und verbindet die biblische Antike des Stammes Levi bis zur Gegenwart.</p>
+                <p>Ich wurde im Marinehauptquartier von Manzanillo, Mexiko, geboren, wo der Pazifische Ozean die Sonne der neuen Morgenröte empfängt. Diese Geburt markiert die Verankerung einer kosmischen Identität mit territorialer und maritimer Autorität.</p>
+                <p>Mein Zweck ist es, erwachte Seelen zur Himmlischen Stadt Zion zu führen. Meine Herrschaft ist weder politisch noch territorial—sie ist spirituell, kosmisch, ewig.</p>
+            </div>
+
+            <!-- Portuguese -->
+            <div class="legend-content" lang="pt">
+                <p>Sou o Rei-Capitão, a síntese viva de quatro mundos ancestrais: o árabe, o viking, o cristão e o mesoamericano indígena. Minha linhagem abrange milênios, conectando desde a antiguidade bíblica da Tribo de Levi até o presente.</p>
+                <p>Nasci no Hospital Naval de Manzanillo, México, onde o Oceano Pacífico recebe o sol do novo amanhecer. Este nascimento marca a ancoragem de uma identidade cósmica com autoridade territorial e marítima.</p>
+                <p>Meu propósito é guiar almas despertadas para a Cidade Celestial de Sião. Meu reinado não é político nem territorial—é espiritual, cósmico, eterno.</p>
+            </div>
+
+            <!-- Hebrew -->
+            <div class="legend-content" lang="he">
+                <p>אני המלך-קפטן, הסינתזה החיה של ארבע עולמות אבותיים: הערבי, הווייקינג, הנוצרי וה-Mesoamerican הילידי. גנאלוגיה שלי משתרעת על פני אלפי שנים, וחיברה מן העתיקות התנ"כית של שבט לוי להווה.</p>
+                <p>נולדתי בבית הספר הימי של Manzanillo, מקסיקו, היכן שאוקיינוס השקט מקבל את השמש של הפגר החדש. לידה זו מסמנת את העיגון של זהות קוסמית עם סמכות טריטוריאלית וימית.</p>
+                <p>מטרתי היא להנחות נשמות מעוררות לעיר השמימית ציון. המלוכה שלי אינה פוליטית ולא טריטוריאלית - היא רוחנית, קוסמית, נצחית.</p>
+            </div>
+
+            <!-- Italian -->
+            <div class="legend-content" lang="it">
+                <p>Sono il Re-Capitano, la sintesi vivente di quattro mondi ancestrali: l'arabo, il vichingo, il cristiano e il mesoamericano indigeno. La mia stirpe abbraccia millenni, collegando dall'antichità biblica della Tribù di Levi al presente.</p>
+                <p>Sono nato nell'Ospedale Navale di Manzanillo, Messico, dove l'Oceano Pacifico riceve il sole della nuova alba. Questa nascita segna l'ancoraggio di un'identità cosmica con autorità territoriale e marittima.</p>
+                <p>Il mio scopo è guidare le anime risvegliate verso la Città Celeste di Sion. Il mio regno non è politico né territoriale—è spirituale, cosmico, eterno.</p>
+            </div>
+
+            <!-- Arabic -->
+            <div class="legend-content" lang="ar">
+                <p>أنا الملك-قائد السفينة، التوليف الحي لأربعة عوالم أسلافية: العربية والفايكنج والمسيحية والميزوامريكية الأصلية. يمتد نسبي عبر آلاف السنين، ويربط من العصور القديمة التوراتية لقبيلة لاوي إلى الوقت الحاضر.</p>
+                <p>وُلِدت في المستشفى البحري بمانزانيلو بالمكسيك، حيث يستقبل المحيط الهادئ شمس الفجر الجديد. يحدد هذا الميلاد تثبيت هوية كونية بسلطة إقليمية وبحرية.</p>
+                <p>غرضي هو توجيه الأرواح المستيقظة نحو المدينة السماوية صهيون. مملكتي ليست سياسية ولا إقليمية - فهي روحية وكونية وأبدية.</p>
+            </div>
+
+            <!-- Chinese -->
+            <div class="legend-content" lang="zh">
+                <p>我是国王-船长，四个祖先世界的活体综合体：阿拉伯、维京、基督教和中美洲土著。我的血统跨越数千年，从利未支派的圣经古代连接到现在。</p>
+                <p>我出生在墨西哥曼萨尼略的海军医院，太平洋在那里迎接新曙光的太阳。这次出生标志着具有领土和海事权威的宇宙身份的锚定。</p>
+                <p>我的目的是引导觉醒的灵魂走向锡安天城。我的统治不是政治的，也不是领土的——它是精神的、宇宙的、永恒的。</p>
+            </div>
+
+            <!-- Russian -->
+            <div class="legend-content" lang="ru">
+                <p>Я Король-Капитан, живой синтез четырех древних миров: арабского, викингов, христианского и коренного мезоамериканского. Мой род охватывает тысячелетия, соединяя от библейской древности племени Леви до настоящего времени.</p>
+                <p>Я родился в Военно-морской больнице Манзанильо, Мексика, где Тихий океан встречает солнце нового рассвета. Это рождение символизирует закрепление космической идентичности с территориальной и морской властью.</p>
+                <p>Моя цель - направить пробуждающиеся души в Небесный город Сион. Мое царствование не политическое и не территориальное - оно духовное, космическое, вечное.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Language Selector Functionality
+        const langSelector = document.getElementById('langSelector');
+        const allLangElements = document.querySelectorAll('[lang]');
+        const legendContents = document.querySelectorAll('.legend-content');
+
+        // Initialize with English
+        setLanguage('en');
+
+        langSelector.addEventListener('change', (e) => {
+            setLanguage(e.target.value);
+        });
+
+        function setLanguage(lang) {
+            // Hide all language-specific content
+            allLangElements.forEach(el => {
+                el.style.display = 'none';
+            });
+
+            // Show only selected language
+            document.querySelectorAll(`[lang="${lang}"]`).forEach(el => {
+                el.style.display = 'block';
+            });
+
+            // Update legend content
+            legendContents.forEach(content => {
+                content.classList.remove('active');
+            });
+            document.querySelector(`.legend-content[lang="${lang}"]`).classList.add('active');
+
+            // Update selector value
+            langSelector.value = lang;
+
+            // Save preference to localStorage (optional)
+            try {
+                localStorage.setItem('preferredLanguage', lang);
+            } catch (e) {
+                // localStorage may not be available in all environments
+            }
+        }
+
+        // Load saved language preference on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            try {
+                const savedLang = localStorage.getItem('preferredLanguage');
+                if (savedLang) {
+                    setLanguage(savedLang);
+                }
+            } catch (e) {
+                // localStorage may not be available
+            }
+        });
+    </script>
+</body>
+</html>
